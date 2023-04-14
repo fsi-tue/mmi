@@ -1,2 +1,1 @@
-# mmi
-Mail (inglist) Management Interface 
+# Mail(inglist) Management Interface
