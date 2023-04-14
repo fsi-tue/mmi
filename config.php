@@ -7,7 +7,4 @@
 
     #General Informations
     $CONFIG_CONTACT = 'fsi@fsi.uni-tuebingen.de';
-    
-    $SENDER_EMAIL = "fsi@fsi.uni-tuebingen.de";
-    $SENDER_NAME  = "EEI - Fachschaft Informatik"
 ?>
