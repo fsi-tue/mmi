@@ -12,7 +12,7 @@ function subscribe($subscribername, $subscribermail, $mailinglist) {
     $mailinglist .= $mailingslist_appendix;
     $subject = "Subscribe";
     $msg = "Subscribe me please!";
-    $headers = "From:" . $subscribername . " <" . $subscribermail . ">";
+    return sendMail($subscribername, $subscribermail, $mailinglist, $subject, $msg);
     //mail($mailinglist, $subject, $msg, $headers);
 }
 
@@ -22,11 +22,12 @@ function unsubscribe($subscribername, $subscribermail, $mailinglist) {
     $subject = "Unsubscribe";
     $msg = "Unsubscribe me please!";
     $headers = "From:" . $subscribername . " <" . $subscribermail . ">";
+    return sendMail($subscribername, $subscribermail, $mailinglist, $subject, $msg);
     //mail($mailinglist, $subject, $msg, $headers);
 }
 
 function register($E){
-    $success = false;
+    $success = true;
     if($E['action'] == 'Anmelden') {
         $mail = filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL);
 
@@ -119,6 +120,41 @@ function register($E){
         }
     }
 
+}
+
+# Loads the environment variables from the .env file
+# https://dev.to/fadymr/php-create-your-own-php-dotenv-3k2i
+function loadEnv($path) {
+    // Path is not readable
+    if (!is_readable($path)) {
+        return;
+    }
+
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+
+        // Skip empty lines
+        if (empty($line) || strpos($line, '=') === false || strpos(trim($line), '#') === 0) {
+            continue;
+        }
+
+        // Parse the line
+        list($key, $value) = explode('=', $line, 2);
+        $key = trim($key);
+        $value = trim($value);
+
+        if (!array_key_exists($key, $_SERVER) && !array_key_exists($key, $_ENV)) {
+            putenv(sprintf('%s=%s', $key, $value));
+            $_ENV[$key] = $value;
+            $_SERVER[$key] = $value;
+        }
+    }
+}
+
+# Returns the value of an environment variable
+function getEnvVar($key, $default = null) {
+    // use getenv() if possible
+    return getenv($key) ?: $default;
 }
 
 ?>

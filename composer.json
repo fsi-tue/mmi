@@ -1,0 +1,13 @@
+{
+    "name": "fsi/mmi",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "license": "GNU Affero",
+    "autoload": {
+        "psr-4": {
+            "Fsi\\Mmi\\": "src/"
+        }
+    }
+}

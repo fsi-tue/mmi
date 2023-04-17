@@ -1,6 +1,8 @@
 <?php
 require_once('config.php');
 require_once('utils.php');
+loadEnv('.env');
+require_once('email.php');
 ?>
 
 <!DOCTYPE html>
