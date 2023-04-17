@@ -7,8 +7,8 @@ function replaceFirstOccurence($searchStr, $replacementStr, $sourceStr) {
 }
 */
 
-function subscribe($subscribername, $subscribermail, $mailinglist) { 
-    $mailingslist_appendix = '-join@fsi.uni-tuebingen.de';
+function subscribe($subscribername, $subscribermail, $mailinglist) {
+    $mailingslist_appendix = '-subscribe@fsi.uni-tuebingen.de';
     $mailinglist .= $mailingslist_appendix;
     $subject = "Subscribe";
     $msg = "Subscribe me please!";
@@ -16,8 +16,8 @@ function subscribe($subscribername, $subscribermail, $mailinglist) {
     //mail($mailinglist, $subject, $msg, $headers);
 }
 
-function unsubscribe($subscribername, $subscribermail, $mailinglist) { 
-    $mailingslist_appendix = '-leave@fsi.uni-tuebingen.de';
+function unsubscribe($subscribername, $subscribermail, $mailinglist) {
+    $mailingslist_appendix = '-unsubscribe@fsi.uni-tuebingen.de';
     $mailinglist .= $mailingslist_appendix;
     $subject = "Unsubscribe";
     $msg = "Unsubscribe me please!";
@@ -26,90 +26,99 @@ function unsubscribe($subscribername, $subscribermail, $mailinglist) {
 }
 
 function register($E){
+    $success = false;
     if($E['action'] == 'Anmelden') {
         $mail = filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL);
-        
+
         if($E['infostudium'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'info-studium');
+            $success &= subscribe($E['name'], $E['mail'], 'info-studium');
         }
-        
+
         if($E['infotalk'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'info-talk');
+            $success &= subscribe($E['name'], $E['mail'], 'info-talk');
         }
-        
+
         if($E['kogwiss'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'kogwiss');
+            $success &= subscribe($E['name'], $E['mail'], 'kogwiss');
         }
 
         if($E['versuche'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'versuche');
+            $success &= subscribe($E['name'], $E['mail'], 'versuche');
         }
 
         if($E['infolehramt'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'info-lehramt');
+            $success &= subscribe($E['name'], $E['mail'], 'info-lehramt');
         }
 
         if($E['infojobs'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'info-jobs');
+            $success &= subscribe($E['name'], $E['mail'], 'info-jobs');
         }
 
         if($E['linuxag'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'linux-ag');
+            $success &= subscribe($E['name'], $E['mail'], 'linux-ag');
         }
 
         if($E['coding'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'coding');
+            $success &= subscribe($E['name'], $E['mail'], 'coding');
         }
 
         if($E['crypto'] == 'on'){
-            subscribe($E['name'], $E['mail'], 'crypto');
+            $success &= subscribe($E['name'], $E['mail'], 'crypto');
         }
-    
-        echo "<div class='block info' style='text-align:center'>Erfolgreich angemeldet!</div>";
+
+        if ($success) {
+            echo "<div class='block info' style='text-align:center'>Erfolgreich angemeldet!</div>";
+        } else {
+            echo "<div class='block error' style='text-align:center'>Fehler beim Anmelden!</div>";
+        }
     }
 
     if($E['action'] == 'Abmelden') {
         $mail = filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL);
-        
+
         if($E['infostudium'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'info-studium');
+            $success &= unsubscribe($E['name'], $E['mail'], 'info-studium');
         }
-        
+
         if($E['infotalk'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'info-talk');
+            $success &= unsubscribe($E['name'], $E['mail'], 'info-talk');
         }
-        
+
         if($E['kogwiss'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'kogwiss');
+            $success &= unsubscribe($E['name'], $E['mail'], 'kogwiss');
         }
 
         if($E['versuche'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'versuche');
+            $success &= unsubscribe($E['name'], $E['mail'], 'versuche');
         }
 
         if($E['infolehramt'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'info-lehramt');
+            $success &= unsubscribe($E['name'], $E['mail'], 'info-lehramt');
         }
 
         if($E['infojobs'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'info-jobs');
+            $success &= unsubscribe($E['name'], $E['mail'], 'info-jobs');
         }
 
         if($E['linuxag'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'linux-ag');
+            $success &= unsubscribe($E['name'], $E['mail'], 'linux-ag');
         }
 
         if($E['coding'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'coding');
+            $success &= unsubscribe($E['name'], $E['mail'], 'coding');
         }
 
         if($E['crypto'] == 'on'){
-            unsubscribe($E['name'], $E['mail'], 'crypto');
+            $success &= unsubscribe($E['name'], $E['mail'], 'crypto');
         }
-    
-        echo "<div class='block info' style='text-align:center'>Erfolgreich abgemeldet!</div>";
+
+        if ($success) {
+            echo "<div class='block info' style='text-align:center'>Erfolgreich abgemeldet!</div>";
+        } else {
+            echo "<div class='block error' style='text-align:center'>Fehler beim Abmelden!</div>";
+        }
     }
-    
+
 }
 
 ?>
