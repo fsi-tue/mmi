@@ -26,10 +26,19 @@ function unsubscribe($subscribername, $subscribermail, $mailinglist) {
     //mail($mailinglist, $subject, $msg, $headers);
 }
 
+function validateEmail($email) {
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    return filter_var($email, FILTER_VALIDATE_EMAIL) && strpos($email, '@student.uni-tuebingen.de') !== false;
+}
+
 function register($E){
     $success = true;
     if($E['action'] == 'Anmelden') {
-        $mail = filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL);
+        // Validate email
+        $validEmail = validateEmail($E['mail']);
+        if (!$validEmail) {
+            $success = false;
+        }
 
         if($E['infostudium'] == 'on'){
             $success &= subscribe($E['name'], $E['mail'], 'info-studium');
