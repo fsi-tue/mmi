@@ -131,6 +131,24 @@ function register($E){
 
 }
 
+function sendConfirmationMail($subscriberName, $subscriberMail, $mailingList, $token) {
+    $subject = "Anmeldung von E-Mail Listen bestätigen";
+    $msg = "
+    Hallo $subscriberName
+    <br>
+    <br>
+    Du hast dich für die Mailingliste $mailingList angemeldet.
+    <br>
+    <br>
+    Um deine Anmeldung zu bestätigen, klicke bitte auf den folgenden Link:
+    <br>
+    <br>
+    <a href='https://www.fsi.uni-tuebingen.de/subscribe/confirm.php?token=$token'>Anmeldung bestätigen</a>
+    ";
+
+    return sendMail($subscriberName, $subscriberMail, $mailingList, $subject, $msg);
+}
+
 # Loads the environment variables from the .env file
 # https://dev.to/fadymr/php-create-your-own-php-dotenv-3k2i
 function loadEnv($path) {

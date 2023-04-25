@@ -4,6 +4,7 @@
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
@@ -23,7 +24,7 @@ function sendMail($subscriberName, $subscriberMail, $mailingList, $subject, $bod
 {
     $mail = new PHPMailer(TRUE);
     try {
-        // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Enable verbose debug output. */
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Enable verbose debug output. */
         $mail->isSMTP();
 
         /* https://stackoverflow.com/questions/2491475/phpmailer-character-encoding-issues */

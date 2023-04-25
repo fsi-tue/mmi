@@ -22,8 +22,8 @@ require_once('email.php');
         <div class="container">
 
             <form action="" method="POST">
-                Name: <input type="text" id="form-name" name="name"><br>
-                Mailadresse: <input type="email" id="form-mail" name="mail" required_size="30"><br><br>
+                <label for="form-name">Name: <input type="text" id="form-name" name="name"></label><br>
+                <label for="form-mail">Mailadresse: <input type="email" id="form-mail" name="mail" required_size="30"></label><br><br>
 
                 <div class="checkboxes">
 
@@ -70,7 +70,11 @@ require_once('email.php');
             </form>
             
                 <?php if($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    register($_POST);
+                        register($_POST);
+                } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    if (isset($_GET['token'])) {
+                        confirm($_GET);
+                    }
                 }
                 ?>
 
